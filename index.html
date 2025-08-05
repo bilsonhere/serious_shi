@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Messages</title>
+    <style>
+        :root {
+            --deep-blue: #1a1a2e;
+            --mystic-purple: #4a306d;
+            --soft-pink: #e8b7d4;
+            --gold-accent: #d4af37;
+            --text-light: #f8f5f2;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--deep-blue);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 48, 109, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(232, 183, 212, 0.2) 0%, transparent 30%);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500&display=swap');
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mysterious Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(74, 48, 109, 0.7));
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--gold-accent);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--gold-accent), var(--soft-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--gold-accent), var(--soft-pink));
+            border-radius: 3px;
+        }
+
+        .intro-text {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Sections with elegant transitions */
+        .section {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            display: none;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--gold-accent), var(--soft-pink));
+        }
+
+        .section.visible {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+            animation: floatIn 0.8s ease-out;
+        }
+
+        /* Question styling */
+        .question-text {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .question-text::before {
+            content: "❧";
+            position: absolute;
+            left: 0;
+            color: var(--gold-accent);
+            font-size: 1.8rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: none;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--soft-pink);
+            box-shadow: 0 0 0 3px rgba(232, 183, 212, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Button styles */
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--gold-accent), var(--soft-pink));
+            z-index: -1;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+        }
+
+        .btn-back::before {
+            display: none;
+        }
+
+        .btn-back:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Confirmation dialog */
+        .confirmation-dialog {
+            background: rgba(26, 26, 46, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border: 1px solid var(--gold-accent);
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .confirmation-dialog.visible {
+            display: block;
+        }
+
+        /* Floating elements */
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.6;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes floatIn {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .section { padding: 2rem; }
+            .question-text { font-size: 1.3rem; }
+            .btn { padding: 0.8rem 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Floating decorative elements -->
+        <div class="floating-emoji" style="top: 10%; left: 5%;">✉️</div>
+        <div class="floating-emoji" style="top: 30%; right: 8%; animation-delay: 0.5s;">💌</div>
+        <div class="floating-emoji" style="bottom: 20%; left: 7%; animation-delay: 1s;">🖋️</div>
+
+        <!-- Mysterious Header -->
+        <header>
+            <h1>Confidential Correspondence</h1>
+            <p class="intro-text">
+                What follows requires your utmost attention. These matters, while appearing light, 
+                hold deeper significance than meets the eye. Proceed with both caution and an open heart.
+            </p>
+        </header>
+
+        <!-- Name Input Section -->
+        <div id="name-section" class="section visible">
+            <div class="form-group">
+                <label for="name" style="display: block; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif;">
+                    To begin, your confidential alias:
+                </label>
+                <input type="text" id="name" placeholder="Your secret identity" required 
+                    style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); 
+                    border: 1px solid var(--gold-accent); border-radius: 8px; color: white;">
+            </div>
+            <button id="name-submit-btn" class="btn btn-block" style="margin-top: 1.5rem;">
+                Verify Identity
+            </button>
+        </div>
+
+        <!-- "Serious" Intro Section -->
+        <div id="welcome-section" class="section">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                <p style="font-style: italic; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif;">
+                    "The most profound truths are often hidden in the simplest exchanges..."
+                </p>
+                <div style="height: 2px; background: linear-gradient(to right, transparent, var(--gold-accent), transparent); margin: 2rem 0;"></div>
+                <p style="margin-bottom: 2rem;">
+                    Prepare yourself for a series of... unconventional inquiries.
+                </p>
+            </div>
+            <button id="welcome-continue-btn" class="btn btn-block">
+                Unlock Questions
+            </button>
+        </div>
+
+        <!-- Casual Questions with Serious Presentation -->
+        <div id="question-1" class="section">
+            <div class="question-text">State your current emotional status:</div>
+            <textarea placeholder="(Translation: How's your day going?)"></textarea>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-2" class="section">
+            <div class="question-text">Report recent social interactions:</div>
+            <textarea placeholder="(Translation: Made any new friends lately?)"></textarea>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-3" class="section">
+            <div class="question-text">Detail current recreational obsessions:</div>
+            <textarea placeholder="(Translation: What are you binge-watching/playing/reading?)"></textarea>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <!-- Final Section -->
+        <div id="final-section" class="section">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🕵️‍♀️</div>
+                <p style="margin-bottom: 1.5rem;">
+                    Your responses will be analyzed with the utmost... casualness.
+                </p>
+                
+                <div class="confirmation-dialog" id="confirmation-dialog">
+                    <p style="margin-bottom: 1rem;">Transmit your confidential data?</p>
+                    <div style="display: flex; justify-content: center; gap: 1rem;">
+                        <button class="btn" id="confirm-yes">Affirmative</button>
+                        <button class="btn btn-back" id="confirm-no">Review</button>
+                    </div>
+                </div>
+                
+                <button id="submit-all-btn" class="btn" style="margin-top: 2rem;" disabled>
+                    Seal Documents
+                </button>
+            </div>
+        </div>
+
+        <!-- Thank You Section -->
+        <div id="thank-you-section" class="section">
+            <div style="text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem;">🎭</div>
+                <h2 style="font-family: 'Cormorant Garamond', serif; margin-bottom: 1rem;">
+                    Operation Complete
+                </h2>
+                <p style="margin-bottom: 1rem;">
+                    Your "top secret" responses have been recorded.
+                </p>
+                <p style="font-style: italic; opacity: 0.8;">
+                    (Thanks for playing along! This was just a fun way to check in.)
+                </p>
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 3rem; padding: 2rem 0; font-family: 'DM Sans', sans-serif; opacity: 0.7;">
+            Confidentiality Level: Playful • Encryption: None • Intent: Wholesome
+        </footer>
+    </div>
+
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { firebaseConfig } from './firebase-config1.js';
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all sections
+            const sections = [
+                document.getElementById('name-section'),
+                document.getElementById('welcome-section'),
+                document.getElementById('question-1'),
+                document.getElementById('question-2'),
+                document.getElementById('question-3'),
+                document.getElementById('final-section'),
+                document.getElementById('thank-you-section')
+            ];
+
+            // DOM elements
+            const nameInput = document.getElementById('name');
+            const nameSubmitBtn = document.getElementById('name-submit-btn');
+            const welcomeContinueBtn = document.getElementById('welcome-continue-btn');
+            const submitAllBtn = document.getElementById('submit-all-btn');
+            const confirmDialog = document.getElementById('confirmation-dialog');
+            const confirmYesBtn = document.getElementById('confirm-yes');
+            const confirmNoBtn = document.getElementById('confirm-no');
+            const textareas = document.querySelectorAll('textarea');
+            const backButtons = document.querySelectorAll('.btn-back');
+            const submitButtons = document.querySelectorAll('.btn-submit');
+
+            // Track current section
+            let currentSectionIndex = 0;
+            let userName = '';
+
+            // Initialize
+            showCurrentSection();
+            setupEventListeners();
+
+            function showCurrentSection() {
+                sections.forEach((section, index) => {
+                    if (index === currentSectionIndex) {
+                        setTimeout(() => {
+                            section.classList.add('visible');
+                        }, 50);
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+            }
+
+            function setupEventListeners() {
+                // Name submit
+                nameSubmitBtn.addEventListener('click', function() {
+                    if (nameInput.value.trim() === '') {
+                        return;
+                    }
+                    userName = nameInput.value.trim();
+                    navigateToNextSection();
+                });
+
+                // Welcome continue
+                welcomeContinueBtn.addEventListener('click', navigateToNextSection);
+
+                // Question submit buttons
+                submitButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const textarea = this.closest('.section').querySelector('textarea');
+                        if (textarea.value.trim() === '') {
+                            return;
+                        }
+                        navigateToNextSection();
+                    });
+                });
+
+                // Back buttons
+                backButtons.forEach(button => {
+                    button.addEventListener('click', navigateToPreviousSection);
+                });
+
+                // Submit all answers
+                submitAllBtn.addEventListener('click', function() {
+                    confirmDialog.classList.add('visible');
+                });
+
+                // Confirmation buttons
+                confirmYesBtn.addEventListener('click', submitAllAnswers);
+                confirmNoBtn.addEventListener('click', function() {
+                    confirmDialog.classList.remove('visible');
+                });
+
+                // Textarea validation
+                textareas.forEach(textarea => {
+                    textarea.addEventListener('input', function() {
+                        const allAnswered = Array.from(textareas).every(ta => ta.value.trim() !== '');
+                        submitAllBtn.disabled = !allAnswered;
+                    });
+                });
+            }
+
+            function navigateToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    currentSectionIndex = index;
+                    showCurrentSection();
+                    window.scrollTo({
+                        top: sections[currentSectionIndex].offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            function navigateToNextSection() {
+                navigateToSection(currentSectionIndex + 1);
+            }
+
+            function navigateToPreviousSection() {
+                navigateToSection(currentSectionIndex - 1);
+            }
+
+            async function submitAllAnswers() {
+                confirmDialog.classList.remove('visible');
+                submitAllBtn.disabled = true;
+                submitAllBtn.textContent = 'Encrypting...';
+
+                const formData = {
+                    name: userName,
+                    timestamp: new Date(),
+                    answers: []
+                };
+
+                // Get all questions and answers
+                for (let i = 2; i <= 4; i++) { // Questions are sections 2-4
+                    const section = sections[i];
+                    formData.answers.push({
+                        question: section.querySelector('.question-text').textContent,
+                        answer: section.querySelector('textarea').value
+                    });
+                }
+
+                try {
+                    await addDoc(collection(db, "casualResponses"), formData);
+                    navigateToSection(sections.length - 1); // Thank you page
+                    submitAllBtn.textContent = 'Transmission Complete';
+                } catch (e) {
+                    console.error("Error:", e);
+                    submitAllBtn.disabled = false;
+                    submitAllBtn.textContent = 'Seal Documents';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
