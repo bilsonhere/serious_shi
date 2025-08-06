@@ -3,57 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pardon My Impatience</title>
+    <title>Royal Correspondence</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: '#f5e9d5',
+                        'parchment-dark': '#e8d9b5',
+                        ink: '#2a2118',
+                        'wax-red': '#a83232',
+                        'wax-gold': '#d4af37',
+                        'royal-purple': '#4a306d',
+                        'royal-blue': '#1a1a2e',
+                    },
+                    fontFamily: {
+                        cormorant: ['Cormorant Garamond', 'serif'],
+                        marcellus: ['Marcellus', 'serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'wax-drip': 'waxDrip 2s infinite',
+                        'float-in': 'floatIn 0.8s ease-out',
+                        'fly': 'fly 15s linear infinite',
+                        'feather-fall': 'featherFall linear forwards',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'seal-spin': 'spin 1s linear',
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <style type="text/tailwindcss">
-        @layer base {
-            body {
-                font-family: 'Cormorant Garamond', serif;
-                @apply bg-amber-50 text-amber-950 min-h-screen overflow-x-hidden;
-                background-image: 
-                    url('https://www.transparenttextures.com/patterns/rice-paper.png'),
-                    linear-gradient(to bottom, rgba(26, 26, 46, 0.05), transparent);
-            }
-        }
-
-        @layer components {
-            .royal-header {
-                @apply text-center mb-12 relative p-12 bg-amber-50 rounded-lg shadow-xl border border-red-300/30;
-                background-image: 
-                    url('https://www.transparenttextures.com/patterns/rice-paper-2.png'),
-                    linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(245,233,213,0.9));
-            }
-
-            .section {
-                @apply bg-amber-50 rounded-lg p-8 mb-8 shadow-lg border border-red-300/30 hidden;
-                background-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
-            }
-
-            .wax-seal {
-                @apply absolute w-24 h-24 rounded-full flex items-center justify-center text-3xl;
-                background: radial-gradient(circle at center, #a83232, #8a2525);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                border: 3px solid rgba(212, 175, 55, 0.5);
-            }
-
-            .question-text {
-                @apply font-cormorant text-2xl font-semibold mb-4 relative pl-12;
-            }
-        }
-
-        @layer utilities {
-            .font-cormorant {
-                font-family: 'Cormorant Garamond', serif;
-            }
-            .font-playfair {
-                font-family: 'Playfair Display', serif;
-            }
-            .font-marcellus {
-                font-family: 'Marcellus', serif;
-            }
-        }
-
+    <style type="text/css">
         @keyframes floatIn {
             0% { transform: translateY(30px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
@@ -83,33 +66,10 @@
             }
         }
 
-        .visible {
-            @apply block;
-            animation: floatIn 0.8s ease-out;
-        }
-
-        .pigeon {
-            @apply fixed text-4xl z-50 opacity-0;
-            filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
-            animation: fly 15s linear infinite;
-        }
-
-        .feather {
-            @apply absolute text-xl opacity-0 z-10;
-            animation: featherFall linear forwards;
-            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2));
-        }
-
-        .royal-decoration {
-            @apply absolute text-2xl opacity-15 -z-10;
-            color: #4a306d;
-        }
-
-        .wax-drip {
-            @apply absolute w-2 h-6;
-            background: #a83232;
-            border-radius: 0 0 4px 4px;
-            animation: waxDrip 2s infinite;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         @keyframes waxDrip {
@@ -118,39 +78,186 @@
             100% { transform: translateY(10px) scaleY(0.8); opacity: 0; }
         }
 
-        .spinner {
-            @apply inline-block w-6 h-6 border-2 border-white/30 rounded-full border-t-white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        textarea {
-            @apply w-full min-h-[180px] p-6 bg-white/50 border border-red-300/30 rounded-lg text-amber-950 font-cormorant text-xl resize-none shadow-inner;
+        .scroll-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
         }
 
-        textarea:focus {
-            @apply outline-none border-purple-800 bg-white/70;
-            box-shadow: 0 0 0 3px rgba(74, 48, 109, 0.1),
-                        inset 0 2px 5px rgba(0,0,0,0.1);
+        .scroll-section {
+            scroll-snap-align: start;
         }
 
-        textarea::-webkit-scrollbar {
-            @apply w-2;
+        .royal-cursor {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23a83232' d='M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z'/></svg>"), auto;
         }
 
-        textarea::-webkit-scrollbar-track {
-            @apply bg-red-300/10 rounded;
+        .btn-royal {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        textarea::-webkit-scrollbar-thumb {
-            @apply bg-red-800 rounded border-2 border-white/30;
+        .btn-royal::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a83232, #d4af37);
+            z-index: -1;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.9;
+        }
+
+        .btn-royal:hover::before {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .btn-royal::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: translate(-25%, -25%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn-royal:hover::after {
+            opacity: 1;
+        }
+
+        .wax-seal {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle at center, #a83232, #8a2525);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .wax-seal:hover {
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .wax-seal::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.1) 100%);
+        }
+
+        .wax-drip {
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: #a83232;
+            border-radius: 0 0 4px 4px;
+            animation: waxDrip 2s infinite;
+        }
+
+        .pigeon {
+            position: fixed;
+            font-size: 2.5rem;
+            z-index: 100;
+            animation: fly 15s linear infinite;
+            opacity: 0;
+            filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .feather {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            z-index: 10;
+            animation: featherFall linear forwards;
+            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2));
+        }
+
+        .royal-decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.15;
+            z-index: -1;
+            color: #4a306d;
+        }
+
+        .visible {
+            display: block;
+            animation: floatIn 0.8s ease-out;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        .scroll-indicator::before {
+            content: "↓";
+            font-size: 1.5rem;
+            color: #4a306d;
+            opacity: 0.7;
+        }
+
+        .ink-splash {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%232a2118" d="M30,10 Q50,5 70,20 Q85,40 80,60 Q75,85 50,90 Q25,85 20,60 Q15,40 30,10" opacity="0.1"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
         }
     </style>
 </head>
-<body class="font-cormorant">
+<body class="font-cormorant bg-parchment-dark text-ink royal-cursor bg-[url('https://www.transparenttextures.com/patterns/rice-paper.png')]">
     <div class="container max-w-4xl mx-auto px-4 py-8 relative z-10">
         <!-- Pigeon messenger -->
         <div class="pigeon" id="pigeon">🕊️</div>
@@ -161,123 +268,114 @@
         <div class="royal-decoration" style="bottom: 10%; left: 8%; transform: rotate(-15deg);">🖋</div>
         <div class="royal-decoration" style="bottom: 25%; right: 10%;">📜</div>
 
+        <!-- Ink splashes -->
+        <div class="ink-splash" style="top: 20%; left: 10%; transform: rotate(20deg); opacity: 0.1;"></div>
+        <div class="ink-splash" style="bottom: 15%; right: 15%; transform: rotate(-15deg); opacity: 0.08;"></div>
+
         <!-- Royal Header -->
-        <header class="royal-header transform transition duration-500 hover:-translate-y-1 hover:rotate-1">
-            <div class="wax-seal right-[-25px] bottom-[-25px] rotate-15 transition duration-400 hover:rotate-0 hover:scale-110">✉</div>
+        <header class="text-center mb-12 relative p-12 bg-parchment rounded-lg shadow-xl border border-wax-red/30 transform transition duration-500 hover:-translate-y-1 hover:rotate-1 bg-[url('https://www.transparenttextures.com/patterns/rice-paper-2.png')]">
+            <div class="wax-seal right-[-25px] bottom-[-25px] rotate-15">✉</div>
             <div class="wax-drip left-5" style="animation-delay: 0.3s;"></div>
             <div class="wax-drip left-10" style="animation-delay: 0.6s;"></div>
-            <h1 class="font-playfair text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-purple-800 to-red-800">
+            <h1 class="font-playfair text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-royal-purple to-wax-red tracking-wider">
                 Your Majesty
             </h1>
-            <p class="intro-text font-cormorant text-xl max-w-3xl mx-auto opacity-90 text-blue-900 font-medium">
+            <p class="intro-text text-xl max-w-3xl mx-auto opacity-90 text-royal-blue font-medium leading-relaxed">
                 By order of the Cr(l)own, these confidential matters require your immediate attention. 
                 The royal pigeon awaits your response with utmost urgency.
             </p>
+            <div class="scroll-indicator"></div>
         </header>
 
         <!-- Name Input Section -->
-        <div id="name-section" class="section visible">
+        <div id="name-section" class="section visible scroll-section bg-parchment rounded-lg p-8 mb-8 shadow-lg border border-wax-red/30 relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/rice-paper-3.png')]">
             <div class="form-group">
-                <label class="block mb-4 font-marcellus font-semibold text-xl text-purple-800">
+                <label class="block mb-4 font-marcellus font-semibold text-xl text-royal-purple">
                     Your royal title or given name:
                 </label>
                 <input type="text" id="name" placeholder="E.g., Queen Afrah of Bangalore" required 
-                    class="w-full p-5 bg-white/50 border border-red-800 rounded-lg text-amber-950 font-cormorant text-xl">
+                    class="w-full p-5 bg-white/50 border border-wax-red rounded-lg text-ink font-cormorant text-xl focus:outline-none focus:ring-2 focus:ring-royal-purple/30 focus:border-royal-purple transition-all duration-300">
             </div>
-            <button id="name-submit-btn" class="btn mt-8 w-full py-4 px-8 border-none rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
+            <button id="name-submit-btn" class="btn-royal w-full py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider mt-8">
                 <span class="relative z-10">Affix Royal Seal</span>
             </button>
         </div>
 
         <!-- Royal Introduction Section -->
-        <div id="welcome-section" class="section">
-            <div class="personal-greeting font-playfair text-4xl text-purple-800 mb-6 text-center relative w-full" id="personal-greeting">
+        <div id="welcome-section" class="section scroll-section bg-parchment rounded-lg p-8 mb-8 shadow-lg border border-wax-red/30 relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/rice-paper-3.png')]">
+            <div class="personal-greeting font-playfair text-4xl text-royal-purple mb-6 text-center relative w-full" id="personal-greeting">
                 My Dearest Afrah
             </div>
             <div class="text-center">
-                <div class="text-5xl mb-6 text-purple-800">🕊️</div>
-                <p class="italic mb-8 font-cormorant text-xl">
+                <div class="text-5xl mb-6 text-royal-purple animate-pulse-slow">🕊️</div>
+                <p class="italic mb-8 text-xl leading-relaxed">
                     "As the royal pigeon carries our words across kingdoms, so too does my concern travel to you..."
                 </p>
-                <div class="h-px bg-gradient-to-r from-transparent via-red-800 to-transparent my-10"></div>
-                <p class="mb-8 text-xl leading-loose">
+                <div class="h-px bg-gradient-to-r from-transparent via-wax-red to-transparent my-10"></div>
+                <p class="mb-8 text-xl leading-relaxed">
                     Prepare yourself for a series of highly significant inquiries. Your attention to this is needed for the socio-economic welfare of our kingdom. (plsplspslspslsppsls dont ignore and answer all i will upi you once i get to india trust)
                 </p>
             </div>
-            <button id="welcome-continue-btn" class="btn w-full py-4 px-8 border-none rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
+            <button id="welcome-continue-btn" class="btn-royal w-full py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider">
                 <span class="relative z-10">Unseal the Scroll</span>
             </button>
         </div>
 
         <!-- Questions Sections -->
-        <div id="question-1" class="section">
-            <div class="question-container bg-white/40 p-8 rounded-lg mb-8 border-l-4 border-red-800 relative">
-                <div class="question-text">Mind unveiling thy day's artistry?</div>
-                <textarea placeholder="MUST ANSWER"></textarea>
+        <div id="question-1" class="section scroll-section bg-parchment rounded-lg p-8 mb-8 shadow-lg border border-wax-red/30 relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/rice-paper-3.png')]">
+            <div class="question-container bg-white/40 p-8 rounded-lg mb-8 border-l-4 border-wax-red relative">
+                <div class="question-text font-semibold text-2xl mb-4 relative pl-12 before:content-['✉'] before:absolute before:left-0 before:text-wax-red before:text-3xl before:top-[-0.2rem] before:transition-all before:duration-300 hover:before:transform hover:before:-translate-y-1 hover:before:rotate-12 hover:before:text-royal-purple">
+                    Mind unveiling thy day's artistry?
+                </div>
+                <textarea placeholder="MUST ANSWER" class="w-full min-h-[180px] p-6 bg-white/50 border border-wax-red/30 rounded-lg text-ink font-cormorant text-xl resize-none shadow-inner focus:outline-none focus:ring-2 focus:ring-royal-purple/30 focus:border-royal-purple transition-all duration-300"></textarea>
             </div>
             <div class="button-group flex justify-between mt-10 gap-6">
-                <button class="btn-back py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-red-800 text-red-800 hover:bg-red-800/10 transition-all">
+                <button class="btn-back py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-wax-red text-wax-red hover:bg-wax-red/10 transition-all duration-300">
                     ← Previous
                 </button>
-                <button class="btn-submit py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
+                <button class="btn-submit btn-royal py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider">
                     <span class="relative z-10">Next →</span>
                 </button>
             </div>
         </div>
 
-        <!-- Repeat similar structure for questions 2-12 -->
-        <div id="question-2" class="section">
-            <div class="question-container bg-white/40 p-8 rounded-lg mb-8 border-l-4 border-red-800 relative">
-                <div class="question-text">What news of the weather in your realm?</div>
-                <textarea placeholder="MUST ANSWER"></textarea>
-            </div>
-            <div class="button-group flex justify-between mt-10 gap-6">
-                <button class="btn-back py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-red-800 text-red-800 hover:bg-red-800/10 transition-all">
-                    ← Previous
-                </button>
-                <button class="btn-submit py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
-                    <span class="relative z-10">Next →</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Continue with questions 3-12 following the same pattern -->
+        <!-- Continue with other question sections (2-12) following the same pattern -->
         <!-- ... -->
 
         <!-- Final Section -->
-        <div id="final-section" class="section">
+        <div id="final-section" class="section scroll-section bg-parchment rounded-lg p-8 mb-8 shadow-lg border border-wax-red/30 relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/rice-paper-3.png')]">
             <div class="text-center">
-                <div class="text-6xl mb-6 text-purple-800">🕊️</div>
-                <p class="mb-6 text-xl leading-loose">
+                <div class="text-6xl mb-6 text-royal-purple animate-pulse-slow">🕊️</div>
+                <p class="mb-6 text-xl leading-relaxed">
                     Thank you. Your responses will be analyzed with utmost care, grace and tears:33
                 </p>
                 
-                <div class="confirmation-dialog bg-amber-50 p-10 rounded-lg mt-10 border border-red-800 hidden" id="confirmation-dialog">
+                <div class="confirmation-dialog bg-parchment p-10 rounded-lg mt-10 border border-wax-red hidden" id="confirmation-dialog">
                     <p class="mb-6 text-xl">Dispatch thy responses by royal pigeon?</p>
                     <div class="flex justify-center gap-6">
-                        <button class="btn py-3 px-6 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden" id="confirm-yes">
+                        <button class="btn-confirm btn-royal py-3 px-6 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider" id="confirm-yes">
                             <span class="relative z-10">Aye</span>
                         </button>
-                        <button class="btn-back py-3 px-6 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-red-800 text-red-800 hover:bg-red-800/10 transition-all" id="confirm-no">
+                        <button class="btn-back py-3 px-6 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-wax-red text-wax-red hover:bg-wax-red/10 transition-all duration-300" id="confirm-no">
                             Review
                         </button>
                     </div>
                 </div>
                 
-                <button id="submit-all-btn" class="btn mt-10 py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden" disabled>
+                <button id="submit-all-btn" class="btn-royal mt-10 py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider" disabled>
                     <span class="relative z-10">Seal With Royal Grace</span>
                 </button>
             </div>
         </div>
 
         <!-- Thank You Section -->
-        <div id="thank-you-section" class="section">
+        <div id="thank-you-section" class="section scroll-section bg-parchment rounded-lg p-8 mb-8 shadow-lg border border-wax-red/30 relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/rice-paper-3.png')]">
             <div class="text-center">
-                <div class="text-7xl mb-8 text-purple-800">✉️</div>
-                <h2 class="font-playfair text-4xl mb-6 text-purple-800">
+                <div class="text-7xl mb-8 text-royal-purple animate-pulse-slow">✉️</div>
+                <h2 class="font-playfair text-4xl mb-6 text-royal-purple">
                     Pigeon delivered your responses.
                 </h2>
-                <p class="mb-6 text-xl leading-loose">
+                <p class="mb-6 text-xl leading-relaxed">
                   The royal pigeon has flown with thy words. Though kingdoms may separate us, my care for thee remains steadfast. Should thou ever wish to correspond again, the royal pigeon shall ever be at thy service.
                 </p>
                 <p class="italic opacity-80 text-lg">
@@ -285,7 +383,7 @@
                     (Hoping that didnt piss you off and you can stop being a ghost soon inshallah amin fr)
                 </p>
             </div>
-            <div class="wax-seal right-[-15px] bottom-[-15px] rotate-15 transition duration-400 hover:rotate-0 hover:scale-110">💌</div>
+            <div class="wax-seal right-[-15px] bottom-[-15px] rotate-15">💌</div>
             <div class="wax-drip right-[30px] bottom-[-15px]" style="animation-delay: 0.3s;"></div>
             <div class="wax-drip right-[50px] bottom-[-20px]" style="animation-delay: 0.6s;"></div>
         </div>
@@ -296,7 +394,7 @@
         </audio>
 
         <footer class="text-center mt-12 py-8 relative opacity-80">
-            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-red-800 to-yellow-600"></div>
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-wax-red to-wax-gold"></div>
             hope is the last thing that dies 
             <br><br>
             w1thn3v34dy1ngl0v3 <br>
@@ -333,15 +431,6 @@
             const bgAudio = document.getElementById('bg-audio');
             const pigeon = document.getElementById('pigeon');
             const waxSeals = document.querySelectorAll('.wax-seal');
-            const btns = document.querySelectorAll('.btn');
-
-            // Add gradient background to all buttons
-            btns.forEach(btn => {
-                const gradient = document.createElement('div');
-                gradient.className = 'absolute inset-0 bg-gradient-to-br from-red-800 to-yellow-600 opacity-90 transition duration-600 hover:opacity-100 hover:scale-105';
-                gradient.style.zIndex = '-1';
-                btn.appendChild(gradient);
-            });
 
             // Track current section
             let currentSectionIndex = 0;
@@ -351,6 +440,7 @@
             showCurrentSection();
             setupEventListeners();
             createRoyalDecorations();
+            createInkSplashes();
 
             function showCurrentSection() {
                 sections.forEach((section, index) => {
@@ -377,9 +467,9 @@
                 // Name submit
                 nameSubmitBtn.addEventListener('click', function() {
                     if (nameInput.value.trim() === '') {
-                        nameInput.classList.add('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
+                        nameInput.classList.add('border-wax-red', 'ring-2', 'ring-wax-red/30');
                         setTimeout(() => {
-                            nameInput.classList.remove('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
+                            nameInput.classList.remove('border-wax-red', 'ring-2', 'ring-wax-red/30');
                         }, 1000);
                         return;
                     }
@@ -392,9 +482,9 @@
                 // Wax seal interactions
                 waxSeals.forEach(seal => {
                     seal.addEventListener('click', function() {
-                        this.style.transform = 'rotate(360deg) scale(1.2)';
+                        this.style.animation = 'seal-spin 1s linear';
                         setTimeout(() => {
-                            this.style.transform = 'rotate(15deg) scale(1)';
+                            this.style.animation = '';
                         }, 1000);
                         createFeathers(1);
                     });
@@ -411,9 +501,9 @@
                     button.addEventListener('click', function() {
                         const textarea = this.closest('.section').querySelector('textarea');
                         if (textarea.value.trim() === '') {
-                            textarea.classList.add('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
+                            textarea.classList.add('border-wax-red', 'ring-2', 'ring-wax-red/30');
                             setTimeout(() => {
-                                textarea.classList.remove('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
+                                textarea.classList.remove('border-wax-red', 'ring-2', 'ring-wax-red/30');
                             }, 1000);
                             return;
                         }
@@ -463,6 +553,18 @@
                     dec.style.opacity = 0.1 + Math.random() * 0.1;
                     dec.style.fontSize = (1 + Math.random() * 0.5) + 'rem';
                     document.body.appendChild(dec);
+                }
+            }
+
+            function createInkSplashes() {
+                for (let i = 0; i < 5; i++) {
+                    const splash = document.createElement('div');
+                    splash.className = 'ink-splash';
+                    splash.style.top = Math.random() * 90 + 5 + '%';
+                    splash.style.left = Math.random() * 90 + 5 + '%';
+                    splash.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 1.5})`;
+                    splash.style.opacity = 0.05 + Math.random() * 0.1;
+                    document.body.appendChild(splash);
                 }
             }
 
