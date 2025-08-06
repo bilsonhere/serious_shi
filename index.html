@@ -1,59 +1,420 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pardon My Impatience</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <style type="text/tailwindcss">
-        @layer base {
-            body {
-                font-family: 'Cormorant Garamond', serif;
-                @apply bg-amber-50 text-amber-950 min-h-screen overflow-x-hidden;
-                background-image: 
-                    url('https://www.transparenttextures.com/patterns/rice-paper.png'),
-                    linear-gradient(to bottom, rgba(26, 26, 46, 0.05), transparent);
-            }
+    <style>
+        :root {
+            --parchment: #f5e9d5;
+            --aged-parchment: #e8d9b5;
+            --ink: #2a2118;
+            --wax-red: #a83232;
+            --wax-gold: #d4af37;
+            --royal-purple: #4a306d;
+            --royal-blue: #1a1a2e;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @layer components {
-            .royal-header {
-                @apply text-center mb-12 relative p-12 bg-amber-50 rounded-lg shadow-xl border border-red-300/30;
-                background-image: 
-                    url('https://www.transparenttextures.com/patterns/rice-paper-2.png'),
-                    linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(245,233,213,0.9));
-            }
-
-            .section {
-                @apply bg-amber-50 rounded-lg p-8 mb-8 shadow-lg border border-red-300/30 hidden;
-                background-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
-            }
-
-            .wax-seal {
-                @apply absolute w-24 h-24 rounded-full flex items-center justify-center text-3xl;
-                background: radial-gradient(circle at center, #a83232, #8a2525);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                border: 3px solid rgba(212, 175, 55, 0.5);
-            }
-
-            .question-text {
-                @apply font-cormorant text-2xl font-semibold mb-4 relative pl-12;
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        @layer utilities {
-            .font-cormorant {
-                font-family: 'Cormorant Garamond', serif;
-            }
-            .font-playfair {
-                font-family: 'Playfair Display', serif;
-            }
-            .font-marcellus {
-                font-family: 'Marcellus', serif;
-            }
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--aged-parchment);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper.png'),
+                linear-gradient(to bottom, rgba(26, 26, 46, 0.05), transparent);
+            line-height: 1.6;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&family=Playfair+Display:wght@400;500;600&display=swap');
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Royal Header with Scroll Effect */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 3rem 2rem;
+            background: var(--parchment);
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(168, 50, 50, 0.3);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper-2.png'),
+                linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(245,233,213,0.9));
+        }
+
+        header:hover {
+            transform: translateY(-5px) rotate(0.5deg);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--royal-purple);
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--royal-purple), var(--wax-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
+            border-radius: 3px;
+        }
+
+        .intro-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+            color: var(--royal-blue);
+            font-weight: 500;
+        }
+
+        /* Enhanced Sections with Hover Effects */
+        .section {
+            background: var(--parchment);
+            border-radius: 4px;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(168, 50, 50, 0.3);
+            display: none;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+        }
+
+        .section:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--wax-red), var(--wax-gold));
+            transition: all 0.3s ease;
+        }
+
+        .section:hover::before {
+            height: 8px;
+        }
+
+        .section.visible {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+            animation: floatIn 0.8s ease-out;
+        }
+
+        /* Enhanced Question Styling */
+        .question-container {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 2rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--wax-red);
+            position: relative;
+        }
+
+        .question-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--royal-purple);
+            position: relative;
+            padding-left: 3rem;
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .question-text:hover {
+            color: var(--wax-red);
+        }
+
+        .question-text::before {
+            content: "✉";
+            position: absolute;
+            left: 0;
+            color: var(--wax-red);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            top: -0.2rem;
+        }
+
+        .question-text:hover::before {
+            transform: translateY(-3px) rotate(10deg);
+            color: var(--royal-purple);
+        }
+
+        /* Enhanced Textarea with Scrollbar Styling */
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(168, 50, 50, 0.3);
+            border-radius: 4px;
+            color: var(--ink);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            resize: none;
+            transition: var(--transition);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--royal-purple);
+            box-shadow: 0 0 0 3px rgba(74, 48, 109, 0.1),
+                        inset 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Custom scrollbar for textarea */
+        textarea::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: rgba(168, 50, 50, 0.1);
+            border-radius: 4px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background-color: var(--wax-red);
+            border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        /* Enhanced Button Styles */
+        .btn {
+            padding: 1.2rem 2.8rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Marcellus', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--wax-red), var(--wax-gold));
+            z-index: -1;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            gap: 1.5rem;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 2px solid var(--wax-red);
+            color: var(--wax-red);
+            box-shadow: none;
+        }
+
+        .btn-back::before {
+            display: none;
+        }
+
+        .btn-back:hover {
+            background: rgba(168, 50, 50, 0.1);
+            letter-spacing: 1.5px;
+            transform: translateX(-3px);
+        }
+
+        /* Enhanced Confirmation Dialog */
+        .confirmation-dialog {
+            background: var(--parchment);
+            padding: 2.5rem;
+            border-radius: 4px;
+            margin-top: 2.5rem;
+            border: 1px solid var(--wax-red);
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+        }
+
+        .confirmation-dialog::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--wax-red), var(--wax-gold));
+        }
+
+        .confirmation-dialog.visible {
+            display: block;
+        }
+
+        /* Enhanced Wax Seal Styling */
+        .wax-seal {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle at center, var(--wax-red), #8a2525);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--wax-gold);
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            right: -25px;
+            bottom: -25px;
+            transform: rotate(15deg);
+            z-index: 2;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            cursor: pointer;
+        }
+
+        .wax-seal:hover {
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .wax-seal::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.1) 100%);
+        }
+
+        /* Enhanced Pigeon Animation */
+        .pigeon {
+            position: fixed;
+            font-size: 2.5rem;
+            z-index: 100;
+            animation: fly 15s linear infinite;
+            opacity: 0;
+            filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Feather Drop Animation */
+        .feather {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            z-index: 10;
+            animation: featherFall linear forwards;
+            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2));
+        }
+
+        /* Royal Decoration Elements */
+        .royal-decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.15;
+            z-index: -1;
+            color: var(--royal-purple);
+        }
+
+        /* Enhanced Animations */
         @keyframes floatIn {
             0% { transform: translateY(30px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
@@ -64,8 +425,12 @@
                 transform: translateX(-100px) translateY(100px) rotate(-10deg);
                 opacity: 0;
             }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
             100% { 
                 transform: translateX(calc(100vw + 100px)) translateY(-100px) rotate(10deg);
                 opacity: 0;
@@ -83,33 +448,15 @@
             }
         }
 
-        .visible {
-            @apply block;
-            animation: floatIn 0.8s ease-out;
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        .pigeon {
-            @apply fixed text-4xl z-50 opacity-0;
-            filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
-            animation: fly 15s linear infinite;
-        }
-
-        .feather {
-            @apply absolute text-xl opacity-0 z-10;
-            animation: featherFall linear forwards;
-            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2));
-        }
-
-        .royal-decoration {
-            @apply absolute text-2xl opacity-15 -z-10;
-            color: #4a306d;
-        }
-
-        .wax-drip {
-            @apply absolute w-2 h-6;
-            background: #a83232;
-            border-radius: 0 0 4px 4px;
-            animation: waxDrip 2s infinite;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         @keyframes waxDrip {
@@ -118,40 +465,178 @@
             100% { transform: translateY(10px) scaleY(0.8); opacity: 0; }
         }
 
+        /* Loading Spinner */
         .spinner {
-            @apply inline-block w-6 h-6 border-2 border-white/30 rounded-full border-t-white;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
             animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        textarea {
-            @apply w-full min-h-[180px] p-6 bg-white/50 border border-red-300/30 rounded-lg text-amber-950 font-cormorant text-xl resize-none shadow-inner;
+        /* Responsive Design with Enhanced Comfort */
+        @media (max-width: 768px) {
+            .container { 
+                padding: 1.5rem;
+                max-width: 95%;
+            }
+            h1 { 
+                font-size: 2.5rem; 
+                line-height: 1.2;
+            }
+            .intro-text { 
+                font-size: 1.1rem; 
+                padding: 0 1rem;
+            }
+            .section { 
+                padding: 2rem 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .question-container {
+                padding: 1.5rem;
+            }
+            .question-text {
+                font-size: 1.4rem;
+                padding-left: 2.5rem;
+            }
+            .personal-greeting { 
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+            .button-group { 
+                flex-direction: column; 
+                gap: 1rem; 
+            }
+            .btn-back, .btn-submit { 
+                width: 100%;
+            }
+            .wax-seal {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
+                right: -15px;
+                bottom: -15px;
+            }
+            textarea {
+                min-height: 150px;
+                padding: 1.2rem;
+            }
         }
 
-        textarea:focus {
-            @apply outline-none border-purple-800 bg-white/70;
-            box-shadow: 0 0 0 3px rgba(74, 48, 109, 0.1),
-                        inset 0 2px 5px rgba(0,0,0,0.1);
+        @media (max-width: 480px) {
+            .container { 
+                padding: 1rem; 
+            }
+            h1 { 
+                font-size: 2rem; 
+            }
+            .btn { 
+                padding: 1rem 1.8rem; 
+                font-size: 1rem;
+            }
+            .question-text { 
+                font-size: 1.3rem;
+                padding-left: 2rem;
+            }
+            header {
+                padding: 2rem 1rem;
+            }
+            .wax-seal {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
+            }
         }
 
-        textarea::-webkit-scrollbar {
-            @apply w-2;
+        /* Comfort Enhancements */
+        .section {
+            scroll-margin-top: 20px;
         }
 
-        textarea::-webkit-scrollbar-track {
-            @apply bg-red-300/10 rounded;
+        input, textarea, button {
+            font-size: 1.1rem;
         }
 
-        textarea::-webkit-scrollbar-thumb {
-            @apply bg-red-800 rounded border-2 border-white/30;
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--royal-purple);
+            font-family: 'Marcellus', serif;
+            font-size: 1.2rem;
+        }
+
+        /* Cursor Effects */
+        .btn, .wax-seal, textarea {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23a83232' d='M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z'/></svg>"), auto;
+        }
+
+        /* Wax Drip Effect */
+        .wax-drip {
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: var(--wax-red);
+            border-radius: 0 0 4px 4px;
+            animation: waxDrip 2s infinite;
+        }
+
+        /* Personal Greeting Styling */
+        .personal-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--royal-purple);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .personal-greeting::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
+            border-radius: 3px;
+        }
+
+        /* Enhanced Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            font-family: 'Cormorant Garamond', serif;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
         }
     </style>
 </head>
-<body class="font-cormorant">
-    <div class="container max-w-4xl mx-auto px-4 py-8 relative z-10">
+<body>
+    <div class="container">
         <!-- Pigeon messenger -->
         <div class="pigeon" id="pigeon">🕊️</div>
 
@@ -162,14 +647,12 @@
         <div class="royal-decoration" style="bottom: 25%; right: 10%;">📜</div>
 
         <!-- Royal Header -->
-        <header class="royal-header transform transition duration-500 hover:-translate-y-1 hover:rotate-1">
-            <div class="wax-seal right-[-25px] bottom-[-25px] rotate-15 transition duration-400 hover:rotate-0 hover:scale-110">✉</div>
-            <div class="wax-drip left-5" style="animation-delay: 0.3s;"></div>
-            <div class="wax-drip left-10" style="animation-delay: 0.6s;"></div>
-            <h1 class="font-playfair text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-br from-purple-800 to-red-800">
-                Your Majesty
-            </h1>
-            <p class="intro-text font-cormorant text-xl max-w-3xl mx-auto opacity-90 text-blue-900 font-medium">
+        <header>
+            <div class="wax-seal">✉</div>
+            <div class="wax-drip" style="left: 20px; animation-delay: 0.3s;"></div>
+            <div class="wax-drip" style="left: 40px; animation-delay: 0.6s;"></div>
+            <h1>Your Majesty</h1>
+            <p class="intro-text">
                 By order of the Cr(l)own, these confidential matters require your immediate attention. 
                 The royal pigeon awaits your response with utmost urgency.
             </p>
@@ -178,116 +661,224 @@
         <!-- Name Input Section -->
         <div id="name-section" class="section visible">
             <div class="form-group">
-                <label class="block mb-4 font-marcellus font-semibold text-xl text-purple-800">
+                <label for="name">
                     Your royal title or given name:
                 </label>
                 <input type="text" id="name" placeholder="E.g., Queen Afrah of Bangalore" required 
-                    class="w-full p-5 bg-white/50 border border-red-800 rounded-lg text-amber-950 font-cormorant text-xl">
+                    style="width: 100%; padding: 1.2rem; background: rgba(255,255,255,0.5); 
+                    border: 1px solid var(--wax-red); border-radius: 4px; color: var(--ink); 
+                    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">
             </div>
-            <button id="name-submit-btn" class="btn mt-8 w-full py-4 px-8 border-none rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
-                <span class="relative z-10">Affix Royal Seal</span>
+            <button id="name-submit-btn" class="btn btn-block" style="margin-top: 2rem;">
+                Affix Royal Seal
             </button>
         </div>
 
         <!-- Royal Introduction Section -->
         <div id="welcome-section" class="section">
-            <div class="personal-greeting font-playfair text-4xl text-purple-800 mb-6 text-center relative w-full" id="personal-greeting">
-                My Dearest Afrah
-            </div>
-            <div class="text-center">
-                <div class="text-5xl mb-6 text-purple-800">🕊️</div>
-                <p class="italic mb-8 font-cormorant text-xl">
+            <div class="personal-greeting" id="personal-greeting">My Dearest Afrah</div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--royal-purple);">🕊️</div>
+                <p style="font-style: italic; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;">
                     "As the royal pigeon carries our words across kingdoms, so too does my concern travel to you..."
                 </p>
-                <div class="h-px bg-gradient-to-r from-transparent via-red-800 to-transparent my-10"></div>
-                <p class="mb-8 text-xl leading-loose">
+                <div style="height: 1px; background: linear-gradient(to right, transparent, var(--wax-red), transparent); margin: 2.5rem 0;"></div>
+                <p style="margin-bottom: 2rem; font-size: 1.2rem; line-height: 1.8;">
                     Prepare yourself for a series of highly significant inquiries. Your attention to this is needed for the socio-economic welfare of our kingdom. (plsplspslspslsppsls dont ignore and answer all i will upi you once i get to india trust)
                 </p>
             </div>
-            <button id="welcome-continue-btn" class="btn w-full py-4 px-8 border-none rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
-                <span class="relative z-10">Unseal the Scroll</span>
+            <button id="welcome-continue-btn" class="btn btn-block">
+                Unseal the Scroll
             </button>
         </div>
 
-        <!-- Questions Sections -->
+        <!-- Original Questions with Royal Presentation -->
         <div id="question-1" class="section">
-            <div class="question-container bg-white/40 p-8 rounded-lg mb-8 border-l-4 border-red-800 relative">
+            <div class="question-container">
                 <div class="question-text">Mind unveiling thy day's artistry?</div>
                 <textarea placeholder="MUST ANSWER"></textarea>
             </div>
-            <div class="button-group flex justify-between mt-10 gap-6">
-                <button class="btn-back py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-red-800 text-red-800 hover:bg-red-800/10 transition-all">
-                    ← Previous
-                </button>
-                <button class="btn-submit py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
-                    <span class="relative z-10">Next →</span>
-                </button>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
             </div>
         </div>
 
-        <!-- Repeat similar structure for questions 2-12 -->
         <div id="question-2" class="section">
-            <div class="question-container bg-white/40 p-8 rounded-lg mb-8 border-l-4 border-red-800 relative">
+            <div class="question-container">
                 <div class="question-text">What news of the weather in your realm?</div>
                 <textarea placeholder="MUST ANSWER"></textarea>
             </div>
-            <div class="button-group flex justify-between mt-10 gap-6">
-                <button class="btn-back py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-red-800 text-red-800 hover:bg-red-800/10 transition-all">
-                    ← Previous
-                </button>
-                <button class="btn-submit py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden">
-                    <span class="relative z-10">Next →</span>
-                </button>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
             </div>
         </div>
 
-        <!-- Continue with questions 3-12 following the same pattern -->
-        <!-- ... -->
+        <div id="question-3" class="section">
+            <div class="question-container">
+                <div class="question-text">Have the royal dentists attended to thy braces?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-4" class="section">
+            <div class="question-container">
+                <div class="question-text">Has the royal kitchen served thee popcorn chicken biryani?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+        
+        <div id="question-5" class="section">
+            <div class="question-container">
+                <div class="question-text">Didst thou meet with the Turkish envoy before departing Bihar?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+        
+        <div id="question-6" class="section">
+            <div class="question-container">
+                <div class="question-text">Have thy royal college's classes commenced?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-7" class="section">
+            <div class="question-container">
+                <div class="question-text">Which royal sibling dost thou miss most dearly?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-8" class="section">
+            <div class="question-container">
+                <div class="question-text">Dost thou miss the lands of Bihar?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-9" class="section">
+            <div class="question-container">
+                <div class="question-text">How fares Bangalore to thee so far?</div>
+                <textarea placeholder="MUST ANSWERRRR"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+        
+        <div id="question-10" class="section">
+            <div class="question-container">
+                <div class="question-text">By thy honor, dost thou hold me in contempt?</div>
+                <textarea placeholder="say with wallahi"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-11" class="section">
+            <div class="question-container">
+                <div class="question-text">Shall our correspondence continue in this lifetime?</div>
+                <textarea placeholder="If aye, when might it happenth?"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-12" class="section">
+            <div class="question-container">
+                <div class="question-text">What must this humble servant do to regain thy royal favor?</div>
+                <textarea placeholder="mujhe aapki yaad bilkul nahi satarahi"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+        </div>
+
+        <div id="question-13" class="section">
+            <div class="question-container">
+                <div class="question-text">Any words/punishment for this loyal subject?</div>
+                <textarea placeholder="Thy words are precious"></textarea>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-back">← Previous</button>
+                <button class="btn btn-submit">Next →</button>
+            </div>
+            <div class="wax-seal">✉</div>
+            <div class="wax-drip" style="right: 30px; bottom: -15px; animation-delay: 0.2s;"></div>
+            <div class="wax-drip" style="right: 50px; bottom: -20px; animation-delay: 0.5s;"></div>
+        </div>
 
         <!-- Final Section -->
         <div id="final-section" class="section">
-            <div class="text-center">
-                <div class="text-6xl mb-6 text-purple-800">🕊️</div>
-                <p class="mb-6 text-xl leading-loose">
+            <div style="text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; color: var(--royal-purple);">🕊️</div>
+                <p style="margin-bottom: 1.5rem; font-size: 1.3rem; line-height: 1.8;">
                     Thank you. Your responses will be analyzed with utmost care, grace and tears:33
                 </p>
                 
-                <div class="confirmation-dialog bg-amber-50 p-10 rounded-lg mt-10 border border-red-800 hidden" id="confirmation-dialog">
-                    <p class="mb-6 text-xl">Dispatch thy responses by royal pigeon?</p>
-                    <div class="flex justify-center gap-6">
-                        <button class="btn py-3 px-6 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden" id="confirm-yes">
-                            <span class="relative z-10">Aye</span>
-                        </button>
-                        <button class="btn-back py-3 px-6 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider border-2 border-red-800 text-red-800 hover:bg-red-800/10 transition-all" id="confirm-no">
-                            Review
-                        </button>
+                <div class="confirmation-dialog" id="confirmation-dialog">
+                    <p style="margin-bottom: 1.5rem; font-size: 1.2rem;">Dispatch thy responses by royal pigeon?</p>
+                    <div style="display: flex; justify-content: center; gap: 1.5rem;">
+                        <button class="btn" id="confirm-yes">Aye</button>
+                        <button class="btn btn-back" id="confirm-no">Review</button>
                     </div>
                 </div>
                 
-                <button id="submit-all-btn" class="btn mt-10 py-4 px-8 rounded-lg font-marcellus font-semibold text-lg uppercase tracking-wider shadow-md relative overflow-hidden" disabled>
-                    <span class="relative z-10">Seal With Royal Grace</span>
+                <button id="submit-all-btn" class="btn" style="margin-top: 2.5rem;" disabled>
+                    Seal With Royal Grace
                 </button>
             </div>
         </div>
 
         <!-- Thank You Section -->
         <div id="thank-you-section" class="section">
-            <div class="text-center">
-                <div class="text-7xl mb-8 text-purple-800">✉️</div>
-                <h2 class="font-playfair text-4xl mb-6 text-purple-800">
+            <div style="text-align: center;">
+                <div style="font-size: 5rem; margin-bottom: 2rem; color: var(--royal-purple);">✉️</div>
+                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; color: var(--royal-purple);">
                     Pigeon delivered your responses.
                 </h2>
-                <p class="mb-6 text-xl leading-loose">
+                <p style="margin-bottom: 1.5rem; font-size: 1.2rem; line-height: 1.8;">
                   The royal pigeon has flown with thy words. Though kingdoms may separate us, my care for thee remains steadfast. Should thou ever wish to correspond again, the royal pigeon shall ever be at thy service.
                 </p>
-                <p class="italic opacity-80 text-lg">
+                <p style="font-style: italic; opacity: 0.8; font-size: 1.1rem;">
                      I just want to talk with you cause I care about you. No other way was working so I thought of trying this yeah I will keep trying, keep wishing, keep believing. But even if you want to just end this, please don't do without a final goodbye talk please. My only wish. Thank you. God bless you. I will never cease to keep praying for your happiness🤍 <br>
                     (Hoping that didnt piss you off and you can stop being a ghost soon inshallah amin fr)
                 </p>
             </div>
-            <div class="wax-seal right-[-15px] bottom-[-15px] rotate-15 transition duration-400 hover:rotate-0 hover:scale-110">💌</div>
-            <div class="wax-drip right-[30px] bottom-[-15px]" style="animation-delay: 0.3s;"></div>
-            <div class="wax-drip right-[50px] bottom-[-20px]" style="animation-delay: 0.6s;"></div>
+            <div class="wax-seal">💌</div>
+            <div class="wax-drip" style="right: 30px; bottom: -15px; animation-delay: 0.3s;"></div>
+            <div class="wax-drip" style="right: 50px; bottom: -20px; animation-delay: 0.6s;"></div>
         </div>
 
         <audio id="bg-audio" loop>
@@ -295,12 +886,11 @@
             Your browser does not support the audio element.
         </audio>
 
-        <footer class="text-center mt-12 py-8 relative opacity-80">
-            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-red-800 to-yellow-600"></div>
-            hope is the last thing that dies 
-            <br><br>
-            w1thn3v34dy1ngl0v3 <br>
-            your (forgotten) friend
+        <footer>
+          hope is the last thing that dies 
+          <br><br>
+          w1thn3v34dy1ngl0v3 <br>
+          your (forgotten) friend
         </footer>
     </div>
 
@@ -320,233 +910,160 @@
             
             // DOM elements
             const nameInput = document.getElementById('name');
-            const nameSubmitBtn = document.getElementById('name-submit-btn');
-            const personalGreeting = document.getElementById('personal-greeting');
+                        const nameSubmitBtn = document.getElementById('name-submit-btn');
             const welcomeContinueBtn = document.getElementById('welcome-continue-btn');
             const submitAllBtn = document.getElementById('submit-all-btn');
-            const confirmDialog = document.getElementById('confirmation-dialog');
             const confirmYesBtn = document.getElementById('confirm-yes');
             const confirmNoBtn = document.getElementById('confirm-no');
-            const textareas = document.querySelectorAll('textarea');
-            const backButtons = document.querySelectorAll('.btn-back');
-            const submitButtons = document.querySelectorAll('.btn-submit');
-            const bgAudio = document.getElementById('bg-audio');
+            const confirmationDialog = document.getElementById('confirmation-dialog');
+            const personalGreeting = document.getElementById('personal-greeting');
             const pigeon = document.getElementById('pigeon');
-            const waxSeals = document.querySelectorAll('.wax-seal');
-            const btns = document.querySelectorAll('.btn');
+            const bgAudio = document.getElementById('bg-audio');
 
-            // Add gradient background to all buttons
-            btns.forEach(btn => {
-                const gradient = document.createElement('div');
-                gradient.className = 'absolute inset-0 bg-gradient-to-br from-red-800 to-yellow-600 opacity-90 transition duration-600 hover:opacity-100 hover:scale-105';
-                gradient.style.zIndex = '-1';
-                btn.appendChild(gradient);
-            });
-
-            // Track current section
+            // Current section index
             let currentSectionIndex = 0;
             let userName = '';
+            const answers = {};
 
-            // Initialize
-            showCurrentSection();
-            setupEventListeners();
-            createRoyalDecorations();
-
-            function showCurrentSection() {
-                sections.forEach((section, index) => {
-                    if (!section) return;
-                    if (index === currentSectionIndex) {
+            // Show current section and hide others
+            function showSection(index) {
+                sections.forEach((section, i) => {
+                    if (i === index) {
+                        section.classList.add('visible');
+                        // Scroll to the section with some offset
                         setTimeout(() => {
-                            section.classList.add('visible');
-                        }, 50);
+                            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
                     } else {
                         section.classList.remove('visible');
                     }
                 });
             }
 
-            function setupEventListeners() {
-                const enableAudioOnce = () => {
-                    bgAudio.play().catch(console.error);
-                    document.removeEventListener('click', enableAudioOnce);
-                    document.removeEventListener('keydown', enableAudioOnce);
-                };
-                document.addEventListener('click', enableAudioOnce);
-                document.addEventListener('keydown', enableAudioOnce);
+            // Name submission
+            nameSubmitBtn.addEventListener('click', () => {
+                if (nameInput.value.trim() === '') {
+                    alert('Your royal title is required to proceed!');
+                    return;
+                }
                 
-                // Name submit
-                nameSubmitBtn.addEventListener('click', function() {
-                    if (nameInput.value.trim() === '') {
-                        nameInput.classList.add('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
-                        setTimeout(() => {
-                            nameInput.classList.remove('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
-                        }, 1000);
+                userName = nameInput.value.trim();
+                personalGreeting.textContent = `My Dearest ${userName.split(' ')[0]}`;
+                
+                // Play background audio
+                bgAudio.play().catch(e => console.log('Audio play failed:', e));
+                
+                // Move to welcome section
+                currentSectionIndex = 1;
+                showSection(currentSectionIndex);
+            });
+
+            // Welcome continue button
+            welcomeContinueBtn.addEventListener('click', () => {
+                currentSectionIndex = 2;
+                showSection(currentSectionIndex);
+            });
+
+            // Next button functionality for all question sections
+            document.querySelectorAll('.btn-submit').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const currentSection = e.target.closest('.section');
+                    const textarea = currentSection.querySelector('textarea');
+                    const questionText = currentSection.querySelector('.question-text').textContent;
+                    
+                    if (textarea.value.trim() === '') {
+                        alert('A royal response is required!');
                         return;
                     }
-                    userName = nameInput.value.trim();
-                    personalGreeting.textContent = `My Dearest ${userName}`;
-                    navigateToNextSection();
-                    createFeathers(5);
-                });
-
-                // Wax seal interactions
-                waxSeals.forEach(seal => {
-                    seal.addEventListener('click', function() {
-                        this.style.transform = 'rotate(360deg) scale(1.2)';
-                        setTimeout(() => {
-                            this.style.transform = 'rotate(15deg) scale(1)';
-                        }, 1000);
-                        createFeathers(1);
-                    });
-                });
-
-                // Welcome continue
-                welcomeContinueBtn.addEventListener('click', function() {
-                    navigateToNextSection();
-                    createFeathers(3);
-                });
-
-                // Question submit buttons
-                submitButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const textarea = this.closest('.section').querySelector('textarea');
-                        if (textarea.value.trim() === '') {
-                            textarea.classList.add('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
-                            setTimeout(() => {
-                                textarea.classList.remove('border-red-800', 'shadow-[0_0_0_3px_rgba(168,50,50,0.2)]');
-                            }, 1000);
-                            return;
-                        }
-                        navigateToNextSection();
-                        createFeathers(2);
-                    });
-                });
-
-                // Back buttons
-                backButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        navigateToPreviousSection();
-                        createFeathers(1);
-                    });
-                });
-
-                // Submit all answers
-                submitAllBtn.addEventListener('click', function() {
-                    confirmDialog.classList.add('visible');
-                    createFeathers(2);
-                });
-
-                // Confirmation buttons
-                confirmYesBtn.addEventListener('click', submitAllAnswers);
-                confirmNoBtn.addEventListener('click', function() {
-                    confirmDialog.classList.remove('visible');
-                });
-
-                // Textarea validation
-                textareas.forEach(textarea => {
-                    textarea.addEventListener('input', function() {
-                        const allAnswered = Array.from(textareas).every(ta => ta.value.trim() !== '');
-                        submitAllBtn.disabled = !allAnswered;
-                    });
-                });
-            }
-
-            function createRoyalDecorations() {
-                const decorations = ['⚜', '✒', '🖋', '📜', '✉', '🏰', '👑'];
-                for (let i = 0; i < 8; i++) {
-                    const dec = document.createElement('div');
-                    dec.className = 'royal-decoration';
-                    dec.innerHTML = decorations[Math.floor(Math.random() * decorations.length)];
-                    dec.style.top = Math.random() * 90 + 5 + '%';
-                    dec.style.left = Math.random() * 90 + 5 + '%';
-                    dec.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
-                    dec.style.opacity = 0.1 + Math.random() * 0.1;
-                    dec.style.fontSize = (1 + Math.random() * 0.5) + 'rem';
-                    document.body.appendChild(dec);
-                }
-            }
-
-            function navigateToSection(index) {
-                if (index >= 0 && index < sections.length) {
-                    currentSectionIndex = index;
-                    showCurrentSection();
-                    window.scrollTo({
-                        top: sections[currentSectionIndex].offsetTop - 50,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-
-            function navigateToNextSection() {
-                navigateToSection(currentSectionIndex + 1);
-            }
-
-            function navigateToPreviousSection() {
-                navigateToSection(currentSectionIndex - 1);
-            }
-
-            function createFeathers(count) {
-                for (let i = 0; i < count; i++) {
-                    const feather = document.createElement('div');
-                    feather.className = 'feather';
-                    feather.innerHTML = '🪶';
-                    feather.style.left = Math.random() * 100 + 'vw';
-                    feather.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    feather.style.animationDelay = (Math.random() * 0.5) + 's';
-                    feather.style.opacity = 0.7 + Math.random() * 0.3;
-                    document.body.appendChild(feather);
                     
-                    // Remove feather after animation completes
-                    setTimeout(() => {
-                        feather.remove();
-                    }, 5000);
-                }
-            }
-
-            async function submitAllAnswers() {
-                confirmDialog.classList.remove('visible');
-                submitAllBtn.disabled = true;
-                submitAllBtn.innerHTML = '<span class="spinner"></span> Dispatching Pigeon...';
-                
-                // Animate pigeon
-                pigeon.style.animation = 'fly 5s linear forwards';
-                pigeon.style.left = '20px';
-                pigeon.style.top = '50%';
-                
-                // Create more feathers for submission
-                createFeathers(10);
-
-                const formData = {
-                    name: userName,
-                    timestamp: new Date(),
-                    answers: []
-                };
-
-                // Get all questions and answers
-                for (let i = 2; i <= 14; i++) {
-                    const section = sections[i];
-                    if (section) {
-                        formData.answers.push({
-                            question: section.querySelector('.question-text').textContent,
-                            answer: section.querySelector('textarea').value
-                        });
+                    // Save answer
+                    answers[questionText] = textarea.value.trim();
+                    
+                    // Move to next section
+                    currentSectionIndex++;
+                    
+                    // If we've reached the final section, enable submit button
+                    if (currentSectionIndex === sections.length - 2) { // -2 because last is thank you
+                        submitAllBtn.disabled = false;
                     }
-                }
+                    
+                    showSection(currentSectionIndex);
+                });
+            });
 
+            // Previous button functionality
+            document.querySelectorAll('.btn-back').forEach(button => {
+                button.addEventListener('click', () => {
+                    // Don't go back from first question to welcome
+                    if (currentSectionIndex === 2) {
+                        currentSectionIndex = 1;
+                    } else {
+                        currentSectionIndex--;
+                    }
+                    showSection(currentSectionIndex);
+                });
+            });
+
+            // Submit all answers
+            submitAllBtn.addEventListener('click', () => {
+                confirmationDialog.classList.add('visible');
+            });
+
+            // Confirmation dialog buttons
+            confirmYesBtn.addEventListener('click', async () => {
+                submitAllBtn.innerHTML = '<span class="spinner"></span> Dispatching Pigeon...';
+                submitAllBtn.disabled = true;
+                
                 try {
-                    await addDoc(collection(db, "royalResponses"), formData);
-                    setTimeout(() => {
-                        navigateToSection(sections.length - 1);
-                        submitAllBtn.textContent = 'Message Delivered';
-                        createFeathers(5);
-                    }, 3000);
-                } catch (e) {
-                    console.error("Error:", e);
+                    // Add document to Firestore
+                    await addDoc(collection(db, "royalResponses"), {
+                        name: userName,
+                        answers: answers,
+                        timestamp: new Date()
+                    });
+                    
+                    // Show thank you section
+                    currentSectionIndex = sections.length - 1;
+                    showSection(currentSectionIndex);
+                    
+                    // Animate pigeon
+                    pigeon.style.opacity = '1';
+                    pigeon.style.animation = 'fly 8s linear forwards';
+                    
+                    // Create feathers
+                    for (let i = 0; i < 15; i++) {
+                        createFeather();
+                    }
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    alert('The royal pigeon encountered an error! Please try again.');
+                    submitAllBtn.innerHTML = 'Seal With Royal Grace';
                     submitAllBtn.disabled = false;
-                    submitAllBtn.textContent = 'Seal With Royal Wax';
-                    pigeon.style.animation = 'none';
                 }
+            });
+
+            confirmNoBtn.addEventListener('click', () => {
+                confirmationDialog.classList.remove('visible');
+            });
+
+            // Create feather animation
+            function createFeather() {
+                const feather = document.createElement('div');
+                feather.className = 'feather';
+                feather.innerHTML = '🪶';
+                feather.style.left = `${Math.random() * 100}%`;
+                feather.style.top = '-50px';
+                feather.style.animationDuration = `${5 + Math.random() * 10}s`;
+                document.body.appendChild(feather);
+                
+                // Remove feather after animation
+                setTimeout(() => {
+                    feather.remove();
+                }, 15000);
             }
+
+            // Initialize first section
+            showSection(currentSectionIndex);
         });
     </script>
 </body>
