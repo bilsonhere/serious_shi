@@ -495,7 +495,7 @@
             <div style="text-align: center;">
                 <div style="font-size: 4rem; margin-bottom: 1.5rem;">🎭</div>
                 <h2 style="font-family: 'Cormorant Garamond', serif; margin-bottom: 1rem;">
-                    Operation Complete
+                    Pigeon delivered your responses.
                 </h2>
                 <p style="margin-bottom: 1rem;">
                   I just want to talk with you cause I care about you. No other way was working so I thought of trying this yeah I will keep trying, keep wishing, keep believing. But even if you want to just end this, please don't do without a final goodbye talk please. My only wish. Thank you. God bless you. I will never cease to keep praying for your happiness🤍
@@ -660,37 +660,37 @@
                 navigateToSection(currentSectionIndex - 1);
             }
 
-            async function submitAllAnswers() {
-                confirmDialog.classList.remove('visible');
-                submitAllBtn.disabled = true;
-                submitAllBtn.textContent = 'Encrypting...';
+        async function submitAllAnswers() {
+    confirmDialog.classList.remove('visible');
+    submitAllBtn.disabled = true;
+    submitAllBtn.textContent = '🕊Pigeon is flying..';
 
-                const formData = {
-                    name: userName,
-                    timestamp: new Date(),
-                    answers: []
-                };
+    const formData = {
+        name: userName,
+        timestamp: new Date(),
+        answers: []
+    };
 
-                // Get all questions and answers
-                for (let i = 2; i <= 4; i++) { // Questions are sections 2-4
-                    const section = sections[i];
-                    formData.answers.push({
-                        question: section.querySelector('.question-text').textContent,
-                        answer: section.querySelector('textarea').value
-                    });
-                }
-
-                try {
-                    await addDoc(collection(db, "casualResponses"), formData);
-                    navigateToSection(sections.length - 1); // Thank you page
-                    submitAllBtn.textContent = 'Transmission Complete';
-                } catch (e) {
-                    console.error("Error:", e);
-                    submitAllBtn.disabled = false;
-                    submitAllBtn.textContent = 'Seal Documents';
-                }
-            }
+    // Get all questions and answers (from question-1 to question-13)
+    // Sections 2-14 are the question sections (indexes 2 to 14 in your sections array)
+    for (let i = 2; i <= 14; i++) {
+        const section = sections[i];
+        formData.answers.push({
+            question: section.querySelector('.question-text').textContent,
+            answer: section.querySelector('textarea').value
         });
+    }
+
+    try {
+        await addDoc(collection(db, "casualResponses"), formData);
+        navigateToSection(sections.length - 1); // Thank you page
+        submitAllBtn.textContent = 'Transmission Complete';
+    } catch (e) {
+        console.error("Error:", e);
+        submitAllBtn.disabled = false;
+        submitAllBtn.textContent = 'Seal Documents';
+    }
+}
     </script>
 </body>
 </html>
