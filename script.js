@@ -1,17 +1,17 @@
-// Firebase imports
+// firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { firebaseConfig } from './firebase-config1.js';
 
-        // Initialize Firebase
+      
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Get all sections
+          
             const sections = Array.from(document.querySelectorAll('.section'));
             
-            // DOM elements
+            // DOM
             const nameInput = document.getElementById('name');
                         const nameSubmitBtn = document.getElementById('name-submit-btn');
             const welcomeContinueBtn = document.getElementById('welcome-continue-btn');
@@ -23,17 +23,17 @@
             const pigeon = document.getElementById('pigeon');
             const bgAudio = document.getElementById('bg-audio');
 
-            // Current section index
+            // INDEX
             let currentSectionIndex = 0;
             let userName = '';
             const answers = {};
 
-            // Show current section and hide others
+            // show secn and hide
             function showSection(index) {
                 sections.forEach((section, i) => {
                     if (i === index) {
                         section.classList.add('visible');
-                        // Scroll to the section with some offset
+                        // transition
                         setTimeout(() => {
                             section.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }, 100);
@@ -43,7 +43,7 @@
                 });
             }
 
-            // Name submission
+            // name
             nameSubmitBtn.addEventListener('click', () => {
                 if (nameInput.value.trim() === '') {
                     alert('Your royal title is required to proceed!');
@@ -53,21 +53,21 @@
                 userName = nameInput.value.trim();
                 personalGreeting.textContent = `My Dearest ${userName.split(' ')[0]}`;
                 
-                // Play background audio
+             
                 bgAudio.play().catch(e => console.log('Audio play failed:', e));
                 
-                // Move to welcome section
+                
                 currentSectionIndex = 1;
                 showSection(currentSectionIndex);
             });
 
-            // Welcome continue button
+            // continue
             welcomeContinueBtn.addEventListener('click', () => {
                 currentSectionIndex = 2;
                 showSection(currentSectionIndex);
             });
 
-            // Next button functionality for all question sections
+            // next button
             document.querySelectorAll('.btn-submit').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const currentSection = e.target.closest('.section');
@@ -79,14 +79,14 @@
                         return;
                     }
                     
-                    // Save answer
+                    // save ans
                     answers[questionText] = textarea.value.trim();
                     
-                    // Move to next section
+                    // next secn
                     currentSectionIndex++;
                     
-                    // If we've reached the final section, enable submit button
-                    if (currentSectionIndex === sections.length - 2) { // -2 because last is thank you
+                    // submit enable
+                    if (currentSectionIndex === sections.length - 2) { 
                         submitAllBtn.disabled = false;
                     }
                     
@@ -94,10 +94,10 @@
                 });
             });
 
-            // Previous button functionality
+            // prev button
             document.querySelectorAll('.btn-back').forEach(button => {
                 button.addEventListener('click', () => {
-                    // Don't go back from first question to welcome
+                  
                     if (currentSectionIndex === 2) {
                         currentSectionIndex = 1;
                     } else {
@@ -107,33 +107,33 @@
                 });
             });
 
-            // Submit all answers
+            // submit everythng
             submitAllBtn.addEventListener('click', () => {
                 confirmationDialog.classList.add('visible');
             });
 
-            // Confirmation dialog buttons
+            // confirma
             confirmYesBtn.addEventListener('click', async () => {
                 submitAllBtn.innerHTML = '<span class="spinner"></span> Dispatching Pigeon...';
                 submitAllBtn.disabled = true;
                 
                 try {
-                    // Add document to Firestore
+                    // firestore
                     await addDoc(collection(db, "royalResponses"), {
                         name: userName,
                         answers: answers,
                         timestamp: new Date()
                     });
                     
-                    // Show thank you section
+                    // thanku
                     currentSectionIndex = sections.length - 1;
                     showSection(currentSectionIndex);
                     
-                    // Animate pigeon
+                    // pigeon
                     pigeon.style.opacity = '1';
                     pigeon.style.animation = 'fly 8s linear forwards';
                     
-                    // Create feathers
+                   
                     for (let i = 0; i < 15; i++) {
                         createFeather();
                     }
@@ -149,7 +149,7 @@
                 confirmationDialog.classList.remove('visible');
             });
 
-            // Create feather animation
+            // feather?
             function createFeather() {
                 const feather = document.createElement('div');
                 feather.className = 'feather';
@@ -159,12 +159,12 @@
                 feather.style.animationDuration = `${5 + Math.random() * 10}s`;
                 document.body.appendChild(feather);
                 
-                // Remove feather after animation
+             
                 setTimeout(() => {
                     feather.remove();
                 }, 15000);
             }
 
-            // Initialize first section
+            // init 1st secn
             showSection(currentSectionIndex);
         });
