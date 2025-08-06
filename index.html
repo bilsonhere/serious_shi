@@ -12,6 +12,7 @@
             --wax-red: #a83232;
             --wax-gold: #d4af37;
             --royal-purple: #4a306d;
+            --royal-blue: #1a1a2e;
             --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -28,14 +29,15 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                url('https://www.transparenttextures.com/patterns/rice-paper.png');
+                url('https://www.transparenttextures.com/patterns/rice-paper.png'),
+                linear-gradient(to bottom, rgba(26, 26, 46, 0.05), transparent);
             line-height: 1.6;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&family=Playfair+Display:wght@400;500;600&display=swap');
 
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
             position: relative;
@@ -49,18 +51,20 @@
             position: relative;
             padding: 3rem 2rem;
             background: var(--parchment);
-            border-radius: 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 12px solid transparent;
-            border-image: url('https://www.transparenttextures.com/patterns/rice-paper.png') 30 round;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(168, 50, 50, 0.3);
             transform-style: preserve-3d;
             perspective: 1000px;
             overflow: hidden;
             transition: transform 0.5s ease;
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper-2.png'),
+                linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(245,233,213,0.9));
         }
 
         header:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(0.5deg);
         }
 
         header::before {
@@ -70,21 +74,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
-            opacity: 0.3;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            opacity: 0.2;
             z-index: -1;
         }
 
         h1 {
-            font-family: 'Marcellus', serif;
-            font-size: 3.2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--royal-purple);
             letter-spacing: 1px;
             position: relative;
             display: inline-block;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--royal-purple), var(--wax-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         h1::after {
@@ -93,40 +101,44 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--wax-red);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
             border-radius: 3px;
         }
 
         .intro-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             line-height: 1.8;
             max-width: 600px;
             margin: 0 auto;
             opacity: 0.9;
+            color: var(--royal-blue);
+            font-weight: 500;
         }
 
         /* Enhanced Sections with Hover Effects */
         .section {
             background: var(--parchment);
-            border-radius: 0;
+            border-radius: 4px;
             padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(168, 50, 50, 0.2);
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(168, 50, 50, 0.3);
             display: none;
             transform: translateY(20px);
             opacity: 0;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            border-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png') 30 round;
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
         }
 
         .section:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
         }
 
         .section::before {
@@ -135,13 +147,13 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
+            height: 6px;
+            background: linear-gradient(90deg, var(--wax-red), var(--wax-gold));
             transition: all 0.3s ease;
         }
 
         .section:hover::before {
-            height: 6px;
+            height: 8px;
         }
 
         .section.visible {
@@ -152,80 +164,95 @@
         }
 
         /* Enhanced Question Styling */
+        .question-container {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 2rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--wax-red);
+            position: relative;
+        }
+
         .question-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
-            margin-bottom: 2rem;
-            color: var(--ink);
+            margin-bottom: 1rem;
+            color: var(--royal-purple);
             position: relative;
-            padding-left: 2.5rem;
+            padding-left: 3rem;
             transition: all 0.3s ease;
+            line-height: 1.4;
         }
 
         .question-text:hover {
-            color: var(--royal-purple);
+            color: var(--wax-red);
         }
 
         .question-text::before {
-            content: "✒";
+            content: "✉";
             position: absolute;
             left: 0;
             color: var(--wax-red);
-            font-size: 1.8rem;
+            font-size: 2rem;
             transition: all 0.3s ease;
+            top: -0.2rem;
         }
 
         .question-text:hover::before {
-            transform: rotate(15deg);
+            transform: translateY(-3px) rotate(10deg);
+            color: var(--royal-purple);
         }
 
         /* Enhanced Textarea with Scrollbar Styling */
         textarea {
             width: 100%;
-            min-height: 150px;
+            min-height: 180px;
             padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.5);
             border: 1px solid rgba(168, 50, 50, 0.3);
-            border-radius: 0;
+            border-radius: 4px;
             color: var(--ink);
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             line-height: 1.6;
             resize: none;
             transition: var(--transition);
-            border-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png') 30 round;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
         }
 
         textarea:focus {
             outline: none;
             border-color: var(--royal-purple);
-            box-shadow: 0 0 0 3px rgba(74, 48, 109, 0.1);
-            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 3px rgba(74, 48, 109, 0.1),
+                        inset 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.7);
         }
 
         /* Custom scrollbar for textarea */
         textarea::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         textarea::-webkit-scrollbar-track {
             background: rgba(168, 50, 50, 0.1);
+            border-radius: 4px;
         }
 
         textarea::-webkit-scrollbar-thumb {
             background-color: var(--wax-red);
             border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         /* Enhanced Button Styles */
         .btn {
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 2.8rem;
             border: none;
-            border-radius: 0;
-            font-family: 'Cormorant Garamond', serif;
+            border-radius: 4px;
+            font-family: 'Marcellus', serif;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
@@ -233,6 +260,7 @@
             z-index: 1;
             letter-spacing: 1px;
             text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .btn::before {
@@ -242,10 +270,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, var(--wax-red), var(--wax-gold));
+            background: linear-gradient(135deg, var(--wax-red), var(--wax-gold));
             z-index: -1;
             transition: var(--transition);
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .btn:hover::before {
@@ -266,14 +294,15 @@
         .button-group {
             display: flex;
             justify-content: space-between;
-            margin-top: 2rem;
-            gap: 1rem;
+            margin-top: 2.5rem;
+            gap: 1.5rem;
         }
 
         .btn-back {
             background: transparent;
-            border: 1px solid var(--wax-red);
+            border: 2px solid var(--wax-red);
             color: var(--wax-red);
+            box-shadow: none;
         }
 
         .btn-back::before {
@@ -283,20 +312,32 @@
         .btn-back:hover {
             background: rgba(168, 50, 50, 0.1);
             letter-spacing: 1.5px;
+            transform: translateX(-3px);
         }
 
         /* Enhanced Confirmation Dialog */
         .confirmation-dialog {
             background: var(--parchment);
-            padding: 2rem;
-            border-radius: 0;
-            margin-top: 2rem;
+            padding: 2.5rem;
+            border-radius: 4px;
+            margin-top: 2.5rem;
             border: 1px solid var(--wax-red);
             display: none;
             animation: fadeIn 0.6s ease-out;
             position: relative;
-            border-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png') 30 round;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+        }
+
+        .confirmation-dialog::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--wax-red), var(--wax-gold));
         }
 
         .confirmation-dialog.visible {
@@ -306,47 +347,68 @@
         /* Enhanced Wax Seal Styling */
         .wax-seal {
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: radial-gradient(circle at center, var(--wax-red), #8a2525);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--wax-gold);
-            font-size: 1.5rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            right: -20px;
-            bottom: -20px;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            right: -25px;
+            bottom: -25px;
             transform: rotate(15deg);
             z-index: 2;
-            border: 2px solid rgba(212, 175, 55, 0.5);
-            transition: all 0.3s ease;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             cursor: pointer;
         }
 
         .wax-seal:hover {
             transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .wax-seal::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.1) 100%);
         }
 
         /* Enhanced Pigeon Animation */
         .pigeon {
             position: fixed;
-            font-size: 2rem;
+            font-size: 2.5rem;
             z-index: 100;
             animation: fly 15s linear infinite;
             opacity: 0;
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+            filter: drop-shadow(3px 5px 8px rgba(0,0,0,0.4));
             transition: all 0.3s ease;
+            pointer-events: none;
         }
 
         /* Feather Drop Animation */
         .feather {
             position: absolute;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             opacity: 0;
             z-index: 10;
             animation: featherFall linear forwards;
+            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2));
+        }
+
+        /* Royal Decoration Elements */
+        .royal-decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.15;
+            z-index: -1;
+            color: var(--royal-purple);
         }
 
         /* Enhanced Animations */
@@ -375,7 +437,7 @@
         @keyframes featherFall {
             0% {
                 transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
+                opacity: 0.8;
             }
             100% {
                 transform: translateY(calc(100vh + 100px)) rotate(360deg);
@@ -394,16 +456,23 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes waxDrip {
+            0% { transform: translateY(-10px) scaleY(0.8); opacity: 0; }
+            50% { transform: translateY(0) scaleY(1); opacity: 1; }
+            100% { transform: translateY(10px) scaleY(0.8); opacity: 0; }
+        }
+
         /* Loading Spinner */
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border: 3px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             border-top-color: white;
             animation: spin 1s ease-in-out infinite;
             margin-right: 10px;
+            vertical-align: middle;
         }
 
         @keyframes spin {
@@ -417,16 +486,23 @@
                 max-width: 95%;
             }
             h1 { 
-                font-size: 2.2rem; 
+                font-size: 2.5rem; 
                 line-height: 1.2;
             }
             .intro-text { 
-                font-size: 1rem; 
+                font-size: 1.1rem; 
                 padding: 0 1rem;
             }
             .section { 
                 padding: 2rem 1.5rem;
                 margin-bottom: 1.5rem;
+            }
+            .question-container {
+                padding: 1.5rem;
+            }
+            .question-text {
+                font-size: 1.4rem;
+                padding-left: 2.5rem;
             }
             .personal-greeting { 
                 font-size: 1.8rem;
@@ -440,15 +516,15 @@
                 width: 100%;
             }
             .wax-seal {
-                width: 60px;
-                height: 60px;
-                font-size: 1.2rem;
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
                 right: -15px;
                 bottom: -15px;
             }
             textarea {
-                min-height: 120px;
-                padding: 1rem;
+                min-height: 150px;
+                padding: 1.2rem;
             }
         }
 
@@ -457,18 +533,23 @@
                 padding: 1rem; 
             }
             h1 { 
-                font-size: 1.8rem; 
+                font-size: 2rem; 
             }
             .btn { 
-                padding: 0.8rem 1.5rem; 
-                font-size: 0.9rem;
+                padding: 1rem 1.8rem; 
+                font-size: 1rem;
             }
             .question-text { 
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 padding-left: 2rem;
             }
             header {
                 padding: 2rem 1rem;
+            }
+            .wax-seal {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
             }
         }
 
@@ -484,13 +565,70 @@
         label {
             display: block;
             margin-bottom: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--royal-purple);
+            font-family: 'Marcellus', serif;
+            font-size: 1.2rem;
         }
 
         /* Cursor Effects */
         .btn, .wax-seal, textarea {
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23a83232' d='M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z'/></svg>"), auto;
+        }
+
+        /* Wax Drip Effect */
+        .wax-drip {
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: var(--wax-red);
+            border-radius: 0 0 4px 4px;
+            animation: waxDrip 2s infinite;
+        }
+
+        /* Personal Greeting Styling */
+        .personal-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--royal-purple);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .personal-greeting::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
+            border-radius: 3px;
+        }
+
+        /* Enhanced Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            font-family: 'Cormorant Garamond', serif;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, var(--wax-red), var(--wax-gold));
         }
     </style>
 </head>
@@ -499,9 +637,17 @@
         <!-- Pigeon messenger -->
         <div class="pigeon" id="pigeon">🕊️</div>
 
+        <!-- Royal Decoration Elements -->
+        <div class="royal-decoration" style="top: 5%; left: 3%;">⚜</div>
+        <div class="royal-decoration" style="top: 15%; right: 5%; transform: rotate(15deg);">✒</div>
+        <div class="royal-decoration" style="bottom: 10%; left: 8%; transform: rotate(-15deg);">🖋</div>
+        <div class="royal-decoration" style="bottom: 25%; right: 10%;">📜</div>
+
         <!-- Royal Header -->
         <header>
             <div class="wax-seal">✉</div>
+            <div class="wax-drip" style="left: 20px; animation-delay: 0.3s;"></div>
+            <div class="wax-drip" style="left: 40px; animation-delay: 0.6s;"></div>
             <h1>Royal Pigeon Post</h1>
             <p class="intro-text">
                 By order of the Crown, these confidential matters require your immediate attention. 
@@ -516,10 +662,11 @@
                     Your royal title or given name:
                 </label>
                 <input type="text" id="name" placeholder="E.g., Queen Afrah of Bangalore" required 
-                    style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.3); 
-                    border: 1px solid var(--wax-red); border-radius: 0; color: var(--ink); font-family: 'Cormorant Garamond', serif;">
+                    style="width: 100%; padding: 1.2rem; background: rgba(255,255,255,0.5); 
+                    border: 1px solid var(--wax-red); border-radius: 4px; color: var(--ink); 
+                    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">
             </div>
-            <button id="name-submit-btn" class="btn btn-block" style="margin-top: 1.5rem;">
+            <button id="name-submit-btn" class="btn btn-block" style="margin-top: 2rem;">
                 Affix Royal Seal
             </button>
         </div>
@@ -528,12 +675,12 @@
         <div id="welcome-section" class="section">
             <div class="personal-greeting" id="personal-greeting">My Dearest Afrah</div>
             <div style="text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">🕊️</div>
-                <p style="font-style: italic; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif;">
+                <div style="font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--royal-purple);">🕊️</div>
+                <p style="font-style: italic; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;">
                     "As the royal pigeon carries our words across kingdoms, so too does my concern travel to you..."
                 </p>
-                <div style="height: 1px; background: linear-gradient(to right, transparent, var(--wax-red), transparent); margin: 2rem 0;"></div>
-                <p style="margin-bottom: 2rem;">
+                <div style="height: 1px; background: linear-gradient(to right, transparent, var(--wax-red), transparent); margin: 2.5rem 0;"></div>
+                <p style="margin-bottom: 2rem; font-size: 1.2rem; line-height: 1.8;">
                     Prepare yourself for a series of... unconventional inquiries. (plsplspslspslsppsls dont ignore and answer all i will upi you once i get to india trust)
                 </p>
             </div>
@@ -544,8 +691,10 @@
 
         <!-- Original Questions with Royal Presentation -->
         <div id="question-1" class="section">
-            <div class="question-text">Mind unveiling the artistry of your day's tale:))??</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Mind unveiling the artistry of your day's tale:))??</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -553,8 +702,10 @@
         </div>
 
         <div id="question-2" class="section">
-            <div class="question-text">Alsooo, how's the weather there??</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Alsooo, how's the weather there??</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -562,8 +713,10 @@
         </div>
 
         <div id="question-3" class="section">
-            <div class="question-text">Did you put on them braces😝??</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Did you put on them braces😝??</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -571,8 +724,10 @@
         </div>
 
         <div id="question-4" class="section">
-            <div class="question-text">Popcorn Chicken Biryani eaten??</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Popcorn Chicken Biryani eaten??</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -580,8 +735,10 @@
         </div>
         
         <div id="question-5" class="section">
-            <div class="question-text">Did you get to meet that turkish friend before leaving Bihar??</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Did you get to meet that turkish friend before leaving Bihar??</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -589,8 +746,10 @@
         </div>
         
         <div id="question-6" class="section">
-            <div class="question-text">Classes began or not omg?????</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Classes began or not omg?????</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -598,8 +757,10 @@
         </div>
 
         <div id="question-7" class="section">
-            <div class="question-text">Which sibling you miss the most🥰?</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Which sibling you miss the most🥰?</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -607,8 +768,10 @@
         </div>
 
         <div id="question-8" class="section">
-            <div class="question-text">Do you miss Bihar🥺🥺🥺???</div>
-            <textarea placeholder="MUST ANSWER"></textarea>
+            <div class="question-container">
+                <div class="question-text">Do you miss Bihar🥺🥺🥺???</div>
+                <textarea placeholder="MUST ANSWER"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -616,8 +779,10 @@
         </div>
 
         <div id="question-9" class="section">
-            <div class="question-text">How's been Bangalore to you so far;)?</div>
-            <textarea placeholder="MUST ANSWERRRR"></textarea>
+            <div class="question-container">
+                <div class="question-text">How's been Bangalore to you so far;)?</div>
+                <textarea placeholder="MUST ANSWERRRR"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -625,8 +790,10 @@
         </div>
         
         <div id="question-10" class="section">
-            <div class="question-text">And uhmmmm be honest Afrah, do you hate me?😟🤞</div>
-            <textarea placeholder="say with wallahi"></textarea>
+            <div class="question-container">
+                <div class="question-text">And uhmmmm be honest Afrah, do you hate me?😟🤞</div>
+                <textarea placeholder="say with wallahi"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -634,8 +801,10 @@
         </div>
 
         <div id="question-11" class="section">
-            <div class="question-text">Will we ever talk again in this lifetime😍?</div>
-            <textarea placeholder="if yes whennnnnnnnnn i missyousmmsmsmsm"></textarea>
+            <div class="question-container">
+                <div class="question-text">Will we ever talk again in this lifetime😍?</div>
+                <textarea placeholder="if yes whennnnnnnnnn i missyousmmsmsmsm"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -643,8 +812,10 @@
         </div>
 
         <div id="question-12" class="section">
-            <div class="question-text">Anything myself need to do to bringth thy presence back in myself dull life?</div>
-            <textarea placeholder="mujhe aapki yaad bilkul nahi satarahi"></textarea>
+            <div class="question-container">
+                <div class="question-text">Anything myself need to do to bringth thy presence back in myself dull life?</div>
+                <textarea placeholder="mujhe aapki yaad bilkul nahi satarahi"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
@@ -652,32 +823,36 @@
         </div>
 
         <div id="question-13" class="section">
-            <div class="question-text">Drop here if any sort of inquiries/curses you have towards me🤗🙏</div>
-            <textarea placeholder="tysm"></textarea>
+            <div class="question-container">
+                <div class="question-text">Drop here if any sort of inquiries/curses you have towards me🤗🙏</div>
+                <textarea placeholder="tysm"></textarea>
+            </div>
             <div class="button-group">
                 <button class="btn btn-back">← Previous</button>
                 <button class="btn btn-submit">Next →</button>
             </div>
             <div class="wax-seal">✉</div>
+            <div class="wax-drip" style="right: 30px; bottom: -15px; animation-delay: 0.2s;"></div>
+            <div class="wax-drip" style="right: 50px; bottom: -20px; animation-delay: 0.5s;"></div>
         </div>
 
         <!-- Final Section -->
         <div id="final-section" class="section">
             <div style="text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">🕊️</div>
-                <p style="margin-bottom: 1.5rem;">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; color: var(--royal-purple);">🕊️</div>
+                <p style="margin-bottom: 1.5rem; font-size: 1.3rem; line-height: 1.8;">
                     Thank you. Your responses will be analyzed with utmost care, grace and tears:33
                 </p>
                 
                 <div class="confirmation-dialog" id="confirmation-dialog">
-                    <p style="margin-bottom: 1rem;">Dispatch thy responses by royal pigeon?</p>
-                    <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <p style="margin-bottom: 1.5rem; font-size: 1.2rem;">Dispatch thy responses by royal pigeon?</p>
+                    <div style="display: flex; justify-content: center; gap: 1.5rem;">
                         <button class="btn" id="confirm-yes">Aye</button>
                         <button class="btn btn-back" id="confirm-no">Review</button>
                     </div>
                 </div>
                 
-                <button id="submit-all-btn" class="btn" style="margin-top: 2rem;" disabled>
+                <button id="submit-all-btn" class="btn" style="margin-top: 2.5rem;" disabled>
                     Seal With Royal Wax
                 </button>
             </div>
@@ -686,18 +861,20 @@
         <!-- Thank You Section -->
         <div id="thank-you-section" class="section">
             <div style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1.5rem;">✉️</div>
-                <h2 style="font-family: 'Marcellus', serif; margin-bottom: 1rem;">
+                <div style="font-size: 5rem; margin-bottom: 2rem; color: var(--royal-purple);">✉️</div>
+                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 1.5rem; color: var(--royal-purple);">
                     Pigeon delivered your responses.
                 </h2>
-                <p style="margin-bottom: 1rem;">
+                <p style="margin-bottom: 1.5rem; font-size: 1.2rem; line-height: 1.8;">
                   I just want to talk with you cause I care about you. No other way was working so I thought of trying this yeah I will keep trying, keep wishing, keep believing. But even if you want to just end this, please don't do without a final goodbye talk please. My only wish. Thank you. God bless you. I will never cease to keep praying for your happiness🤍
                 </p>
-                <p style="font-style: italic; opacity: 0.8;">
+                <p style="font-style: italic; opacity: 0.8; font-size: 1.1rem;">
                     (Hoping that didnt piss you off and you can stop being a ghost soon inshallah amin fr)
                 </p>
             </div>
             <div class="wax-seal">💌</div>
+            <div class="wax-drip" style="right: 30px; bottom: -15px; animation-delay: 0.3s;"></div>
+            <div class="wax-drip" style="right: 50px; bottom: -20px; animation-delay: 0.6s;"></div>
         </div>
 
         <audio id="bg-audio" loop>
@@ -705,7 +882,7 @@
             Your browser does not support the audio element.
         </audio>
 
-        <footer style="text-align: center; margin-top: 3rem; padding: 2rem 0; font-family: 'Cormorant Garamond', serif; opacity: 0.7;">
+        <footer>
           hope is the last thing that dies 
           <br><br>
           w1thn3v34dy1ngl0v3 <br>
@@ -768,6 +945,7 @@
             // Initialize
             showCurrentSection();
             setupEventListeners();
+            createRoyalDecorations();
 
             function showCurrentSection() {
                 sections.forEach((section, index) => {
@@ -793,6 +971,12 @@
                 // Name submit
                 nameSubmitBtn.addEventListener('click', function() {
                     if (nameInput.value.trim() === '') {
+                        nameInput.style.borderColor = 'var(--wax-red)';
+                        nameInput.style.boxShadow = '0 0 0 3px rgba(168, 50, 50, 0.2)';
+                        setTimeout(() => {
+                            nameInput.style.borderColor = 'var(--wax-red)';
+                            nameInput.style.boxShadow = 'none';
+                        }, 1000);
                         return;
                     }
                     userName = nameInput.value.trim();
@@ -808,6 +992,7 @@
                         setTimeout(() => {
                             this.style.transform = 'rotate(15deg) scale(1)';
                         }, 1000);
+                        createFeathers(1);
                     });
                 });
 
@@ -823,8 +1008,10 @@
                         const textarea = this.closest('.section').querySelector('textarea');
                         if (textarea.value.trim() === '') {
                             textarea.style.borderColor = 'var(--wax-red)';
+                            textarea.style.boxShadow = '0 0 0 3px rgba(168, 50, 50, 0.2)';
                             setTimeout(() => {
                                 textarea.style.borderColor = 'rgba(168, 50, 50, 0.3)';
+                                textarea.style.boxShadow = 'inset 0 2px 5px rgba(0,0,0,0.1)';
                             }, 1000);
                             return;
                         }
@@ -862,6 +1049,21 @@
                 });
             }
 
+            function createRoyalDecorations() {
+                const decorations = ['⚜', '✒', '🖋', '📜', '✉', '🏰', '👑'];
+                for (let i = 0; i < 8; i++) {
+                    const dec = document.createElement('div');
+                    dec.className = 'royal-decoration';
+                    dec.innerHTML = decorations[Math.floor(Math.random() * decorations.length)];
+                    dec.style.top = Math.random() * 90 + 5 + '%';
+                    dec.style.left = Math.random() * 90 + 5 + '%';
+                    dec.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
+                    dec.style.opacity = 0.1 + Math.random() * 0.1;
+                    dec.style.fontSize = (1 + Math.random() * 0.5) + 'rem';
+                    document.body.appendChild(dec);
+                }
+            }
+
             function navigateToSection(index) {
                 if (index >= 0 && index < sections.length) {
                     currentSectionIndex = index;
@@ -889,6 +1091,7 @@
                     feather.style.left = Math.random() * 100 + 'vw';
                     feather.style.animationDuration = (Math.random() * 3 + 2) + 's';
                     feather.style.animationDelay = (Math.random() * 0.5) + 's';
+                    feather.style.opacity = 0.7 + Math.random() * 0.3;
                     document.body.appendChild(feather);
                     
                     // Remove feather after animation completes
